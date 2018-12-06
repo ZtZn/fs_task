@@ -1,8 +1,6 @@
 class Sequence
-  def initialize(step: 5, first_element: '1')
-    @first_element = first_element
-    @step = step - 1
-    @sequence = create_sequence
+  def initialize(first_element: '1')
+    @sequence = [first_element]
   end
 
   def print_pretty
@@ -11,17 +9,21 @@ class Sequence
     end
   end
 
-  private
-
-  def create_sequence
-    @sequence_arr = [@first_element]
-    tmp_element = @first_element
-    @step.times do
+  def create_sequence(step)
+    step = step - 1
+    tmp_element = @sequence.last
+    step.times do
       tmp_element = next_line(tmp_element)
-      @sequence_arr.push(tmp_element)
+      @sequence.push(tmp_element)
     end
-    @sequence_arr
+    @sequence
   end
+
+  def last_line
+    @sequence.last.to_s
+  end
+
+  private
 
   def next_line(line)
     array = line.scan(/((\w)\2*)/).map(&:first)
